@@ -1,0 +1,60 @@
+buildscript {
+    ext {
+        springBootVersion = '3.1.5'
+        dependencyManagementVersion = '1.1.3'
+        profile=(!project.hasProperty('profile') || !profile) ? 'local' : profile
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
+    }
+}
+
+
+def exceptModules = ['cloudconfig']
+//특정 모듈을 제외한 전체 모듈 설정
+configure(subprojects.findAll {!exceptModules.contains(it.name) }) {
+    group = 'dev.gh90'
+    version = '0.0.1-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 17
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        //https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto.logging.log4j
+        implementation('org.springframework.boot:spring-boot-starter-log4j2')
+        //yml 쓰기 위한 log4j2 의존성
+        implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml'
+        implementation 'com.fasterxml.jackson.core:jackson-annotations'
+
+    }
+
+    ext {
+        set('springCloudVersion', "2022.0.4")
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    configurations {
+        all {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        }
+    }
+}
