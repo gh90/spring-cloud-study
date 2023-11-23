@@ -35,3 +35,5 @@ out/
 
 ### VS Code ###
 .vscode/
+/cloudconfig/config-server/key/
+/key/id_rsa

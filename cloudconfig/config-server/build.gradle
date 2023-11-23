@@ -8,9 +8,6 @@ dependencies {
 
 }
 
-ext {
-    set('springCloudVersion', "2021.x.x")
-}
 sourceSets{
     main{
         resources {
