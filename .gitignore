@@ -37,3 +37,4 @@ out/
 .vscode/
 /cloudconfig/config-server/key/
 /key/id_rsa
+/repo/

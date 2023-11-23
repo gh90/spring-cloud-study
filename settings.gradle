@@ -2,3 +2,4 @@ rootProject.name = 'spring-cloud-study'
 
 include 'cloudconfig'
 include 'cloudconfig:config-server'
+include 'cloudconfig:config-client'
