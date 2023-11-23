@@ -14,18 +14,19 @@ import java.util.stream.Collectors;
 @EnableConfigServer
 public class ConfigServerApplication {
     public static void main(String[] args) {
-        String rsaKeyFilePath = "key/id_rsa";
-        Path current = Paths.get("");
-        Path absolutePath = current.resolve(rsaKeyFilePath);
-
-        String rsaKey;
-        try {
-            rsaKey = Files.lines(absolutePath)
-                    .collect(Collectors.joining("\n"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.setProperty("spring.cloud.config.server.git.privateKey",rsaKey);
+//        private repository 대응
+//        String rsaKeyFilePath = "key/id_rsa";
+//        Path current = Paths.get("");
+//        Path absolutePath = current.resolve(rsaKeyFilePath);
+//
+//        String rsaKey;
+//        try {
+//            rsaKey = Files.lines(absolutePath)
+//                    .collect(Collectors.joining("\n"));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        System.setProperty("spring.cloud.config.server.git.privateKey",rsaKey);
         SpringApplication.run(ConfigServerApplication.class, args);
     }
 }
